@@ -92,7 +92,92 @@ function initForms() {
     if (configForm) {
         configForm.addEventListener('submit', handleSaveConfig);
     }
+
+    // Service selection listeners
+    initServiceSelectors();
 }
+
+// Initialize service selector listeners
+function initServiceSelectors() {
+    // Video service selector
+    const videoService = document.getElementById('video-service');
+    if (videoService) {
+        videoService.addEventListener('change', updateVideoServiceHints);
+        updateVideoServiceHints(); // Initial update
+    }
+
+    // Content AI service selector
+    const contentAI = document.getElementById('content-ai-service');
+    if (contentAI) {
+        contentAI.addEventListener('change', () => {
+            // Could update hints/labels here
+        });
+    }
+
+    // TTS service selector
+    const ttsService = document.getElementById('tts-service');
+    if (ttsService) {
+        ttsService.addEventListener('change', () => {
+            // Could update hints/labels here
+        });
+    }
+}
+
+// Update video service hints
+function updateVideoServiceHints() {
+    const service = document.getElementById('video-service').value;
+    const link = document.getElementById('video-service-link');
+
+    const services = {
+        'luma': '<a href="https://piapi.ai/" target="_blank">piapi.ai</a>',
+        'runway': '<a href="https://runwayml.com/" target="_blank">runwayml.com</a>',
+        'skyreels': '<a href="https://piapi.ai/" target="_blank">piapi.ai</a>',
+        'pika': '<a href="https://pika.art/" target="_blank">pika.art</a>'
+    };
+
+    if (link) {
+        link.innerHTML = services[service] || '';
+    }
+}
+
+// Quality preset selection
+window.selectQualityPreset = function (preset) {
+    const presets = {
+        budget: {
+            'content-ai-service': 'gemini',
+            'tts-service': 'openai',
+            'video-service': 'luma'
+        },
+        premium: {
+            'content-ai-service': 'gpt4',
+            'tts-service': 'elevenlabs',
+            'video-service': 'runway'
+        }
+    };
+
+    const config = presets[preset];
+    if (config) {
+        Object.keys(config).forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = config[id];
+        });
+
+        // Update hints
+        updateVideoServiceHints();
+
+        // Visual feedback
+        document.querySelectorAll('.quality-preset').forEach(p => {
+            p.style.border = '1px solid var(--glass-border)';
+        });
+        const selected = document.querySelector(`[data-preset="${preset}"]`);
+        if (selected) {
+            selected.style.border = '2px solid var(--primary)';
+        }
+
+        showToast(`${preset === 'budget' ? '💰 Budget' : '⭐ Premium'} preset selected!`);
+    }
+}
+
 
 // Check configuration status
 async function checkConfiguration() {
@@ -291,13 +376,28 @@ async function loadSettings() {
 async function handleSaveConfig(e) {
     e.preventDefault();
 
+    // Gather all configuration data
     const config = {
-        gemini: document.getElementById('api-gemini').value.trim(),
-        openai: document.getElementById('api-openai').value.trim(),
-        luma: document.getElementById('api-luma').value.trim(),
-        youtube_client_id: document.getElementById('api-youtube-client-id').value.trim(),
-        youtube_client_secret: document.getElementById('api-youtube-client-secret').value.trim(),
+        // Service selections
+        content_ai_service: document.getElementById('content-ai-service')?.value,
+        tts_service: document.getElementById('tts-service')?.value,
+        video_service: document.getElementById('video-service')?.value,
+
+        // API Keys
+        gemini: document.getElementById('api-gemini')?.value.trim(),
+        openai: document.getElementById('api-openai')?.value.trim(),
+        video_api: document.getElementById('api-video')?.value.trim(),
+        video_endpoint: document.getElementById('video-endpoint')?.value.trim(),
+        whisper: document.getElementById('api-whisper')?.value.trim(),
+        elevenlabs: document.getElementById('api-elevenlabs')?.value.trim(),
+        youtube_client_id: document.getElementById('api-youtube-client-id')?.value.trim(),
+        youtube_client_secret: document.getElementById('api-youtube-client-secret')?.value.trim(),
     };
+
+    // Remove empty values
+    Object.keys(config).forEach(key => {
+        if (!config[key]) delete config[key];
+    });
 
     const btn = e.target.querySelector('button[type="submit"]');
     const originalText = btn.innerHTML;
@@ -308,9 +408,12 @@ async function handleSaveConfig(e) {
         await api.saveConfig(config);
         showToast('✅ Configuration saved successfully!');
 
-        // Clear password fields for security
-        Object.keys(config).forEach(key => {
-            document.getElementById(`api-${key.replace('_', '-')}`).value = '';
+        // Clear password fields for security (not service selections)
+        const passwordFields = ['api-gemini', 'api-openai', 'api-video', 'api-whisper',
+            'api-elevenlabs', 'api-youtube-client-id', 'api-youtube-client-secret'];
+        passwordFields.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
         });
 
     } catch (error) {

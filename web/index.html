@@ -208,68 +208,160 @@
         <div id="settings-page" class="page">
             <div class="page-header">
                 <h1>Settings</h1>
-                <p>Configure your API keys and preferences</p>
+                <p>Configure your API keys and quality preferences</p>
             </div>
 
             <div class="settings-container">
                 <div class="settings-card">
+                    <h3>Quality Presets</h3>
+                    <p class="card-description">Choose your quality and cost preference</p>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 2rem;">
+                        <div class="quality-preset" data-preset="budget">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <h4 style="font-size: 1.125rem;">💰 Budget</h4>
+                                <span class="badge badge-free">$0.23/video</span>
+                            </div>
+                            <ul style="font-size: 0.875rem; color: var(--text-secondary); list-style: none;">
+                                <li>✓ FREE Gemini API</li>
+                                <li>✓ OpenAI TTS</li>
+                                <li>✓ Luma AI Video</li>
+                                <li>✓ Whisper Captions</li>
+                            </ul>
+                            <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;"
+                                onclick="selectQualityPreset('budget')">
+                                Select Budget
+                            </button>
+                        </div>
+
+                        <div class="quality-preset" data-preset="premium">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                <h4 style="font-size: 1.125rem;">⭐ Premium</h4>
+                                <span class="badge badge-required">$3.31/video</span>
+                            </div>
+                            <ul style="font-size: 0.875rem; color: var(--text-secondary); list-style: none;">
+                                <li>✓ GPT-4 Content AI</li>
+                                <li>✓ ElevenLabs TTS</li>
+                                <li>✓ Runway Gen-3 Video</li>
+                                <li>✓ Whisper Captions</li>
+                            </ul>
+                            <button class="btn btn-secondary" style="width: 100%; margin-top: 1rem;"
+                                onclick="selectQualityPreset('premium')">
+                                Select Premium
+                            </button>
+                        </div>
+                    </div>
+
                     <h3>API Configuration</h3>
                     <p class="card-description">Enter your API keys to enable video generation</p>
 
                     <form id="api-config-form">
-                        <!-- Google Gemini -->
+                        <!-- Content AI Selection -->
                         <div class="api-section">
                             <div class="api-header">
-                                <h4>Google Gemini (Content AI) - FREE</h4>
-                                <span class="badge badge-free">Required</span>
+                                <h4>Content AI (Titles, Descriptions, Tags)</h4>
+                                <span class="badge badge-required">Required</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="content-ai-service">Service</label>
+                                <select id="content-ai-service" class="form-control">
+                                    <option value="gemini">Google Gemini (FREE - 1,000 req/day)</option>
+                                    <option value="gpt4">OpenAI GPT-4 (~$0.01/video)</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="api-gemini">API Key</label>
                                 <input type="password" id="api-gemini" class="form-control"
-                                    placeholder="Enter your Gemini API key">
-                                <small class="form-hint">
-                                    Get it from: <a href="https://ai.google.dev/" target="_blank">ai.google.dev</a>
-                                </small>
-                            </div>
-                        </div>
-
-                        <!-- OpenAI -->
-                        <div class="api-section">
-                            <div class="api-header">
-                                <h4>OpenAI (TTS & Captions)</h4>
-                                <span class="badge badge-required">Required</span>
-                            </div>
-                            <div class="form-group">
-                                <label for="api-openai">API Key</label>
-                                <input type="password" id="api-openai" class="form-control"
-                                    placeholder="Enter your OpenAI API key">
-                                <small class="form-hint">
-                                    Get it from: <a href="https://platform.openai.com/api-keys"
+                                    placeholder="Enter your API key">
+                                <small class="form-hint" id="content-ai-hint">
+                                    Gemini: <a href="https://ai.google.dev/" target="_blank">ai.google.dev</a> |
+                                    OpenAI: <a href="https://platform.openai.com/api-keys"
                                         target="_blank">platform.openai.com</a>
                                 </small>
                             </div>
                         </div>
 
-                        <!-- Luma AI -->
+                        <!-- TTS Selection -->
                         <div class="api-section">
                             <div class="api-header">
-                                <h4>Luma AI (Video Generation)</h4>
+                                <h4>Text-to-Speech (Voiceover)</h4>
                                 <span class="badge badge-required">Required</span>
                             </div>
                             <div class="form-group">
-                                <label for="api-luma">API Key</label>
-                                <input type="password" id="api-luma" class="form-control"
-                                    placeholder="Enter your Luma AI API key">
-                                <small class="form-hint">
-                                    Get it from: <a href="https://piapi.ai/" target="_blank">piapi.ai</a>
+                                <label for="tts-service">Service</label>
+                                <select id="tts-service" class="form-control">
+                                    <option value="openai">OpenAI TTS (~$0.02/video)</option>
+                                    <option value="elevenlabs">ElevenLabs (Premium - ~$0.30/video)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="api-openai">API Key</label>
+                                <input type="password" id="api-openai" class="form-control"
+                                    placeholder="Enter your API key">
+                                <small class="form-hint" id="tts-hint">
+                                    OpenAI: <a href="https://platform.openai.com/api-keys"
+                                        target="_blank">platform.openai.com</a> |
+                                    ElevenLabs: <a href="https://elevenlabs.io/" target="_blank">elevenlabs.io</a>
                                 </small>
                             </div>
                         </div>
 
-                        <!-- YouTube -->
+                        <!-- Video Generation Selection -->
                         <div class="api-section">
                             <div class="api-header">
-                                <h4>YouTube Data API</h4>
+                                <h4>Video Generation (AI Video)</h4>
+                                <span class="badge badge-required">Required</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-service">Service</label>
+                                <select id="video-service" class="form-control">
+                                    <option value="luma">Luma AI (~$0.20/video)</option>
+                                    <option value="runway">Runway Gen-3 (~$3.00/video)</option>
+                                    <option value="skyreels">SkyReels V3 (~$0.15/video)</option>
+                                    <option value="pika">Pika Labs (~$0.25/video)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="api-video">API Key / Endpoint</label>
+                                <input type="password" id="api-video" class="form-control"
+                                    placeholder="Enter your API key">
+                                <small class="form-hint" id="video-hint">
+                                    Get from: <span id="video-service-link"></span>
+                                </small>
+                            </div>
+                            <div class="form-group">
+                                <label for="video-endpoint">Custom API Endpoint (Optional)</label>
+                                <input type="text" id="video-endpoint" class="form-control"
+                                    placeholder="https://api.example.com/v1/generate">
+                                <small class="form-hint">
+                                    Leave blank to use default endpoint
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- Captions API -->
+                        <div class="api-section">
+                            <div class="api-header">
+                                <h4>OpenAI Whisper (Auto-Captions)</h4>
+                                <span class="badge badge-required">Required</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="api-whisper">API Key</label>
+                                <input type="password" id="api-whisper" class="form-control"
+                                    placeholder="Enter your OpenAI API key">
+                                <small class="form-hint">
+                                    Same as OpenAI key: <a href="https://platform.openai.com/api-keys"
+                                        target="_blank">platform.openai.com</a>
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- YouTube (Optional) -->
+                        <div class="api-section">
+                            <div class="api-header">
+                                <h4>YouTube Data API (Auto-Upload)</h4>
                                 <span class="badge badge-optional">Optional</span>
                             </div>
                             <div class="form-group">
@@ -284,6 +376,22 @@
                                 <small class="form-hint">
                                     Get credentials from: <a href="https://console.cloud.google.com/"
                                         target="_blank">Google Cloud Console</a>
+                                </small>
+                            </div>
+                        </div>
+
+                        <!-- ElevenLabs (Optional Premium) -->
+                        <div class="api-section">
+                            <div class="api-header">
+                                <h4>ElevenLabs (Premium TTS)</h4>
+                                <span class="badge badge-optional">Optional</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="api-elevenlabs">API Key</label>
+                                <input type="password" id="api-elevenlabs" class="form-control"
+                                    placeholder="Enter your ElevenLabs API key">
+                                <small class="form-hint">
+                                    Get it from: <a href="https://elevenlabs.io/" target="_blank">elevenlabs.io</a>
                                 </small>
                             </div>
                         </div>
@@ -306,13 +414,30 @@
                     <p>Your API keys are encrypted and stored securely in a local database. They are never transmitted
                         except to the respective service APIs.</p>
 
-                    <h3>💰 Cost Breakdown</h3>
+                    <h3>🎬 Video Generation APIs</h3>
                     <ul class="cost-list">
-                        <li><strong>Gemini:</strong> FREE (1,000 requests/day)</li>
-                        <li><strong>OpenAI TTS:</strong> ~$0.02/video</li>
-                        <li><strong>Whisper:</strong> ~$0.01/video</li>
-                        <li><strong>Luma AI:</strong> ~$0.20/video</li>
-                        <li><strong>Total:</strong> ~$0.23/video</li>
+                        <li><strong>Luma AI:</strong> $0.20/video - <a href="https://piapi.ai/"
+                                target="_blank">piapi.ai</a></li>
+                        <li><strong>Runway Gen-3:</strong> $3.00/video - <a href="https://runwayml.com/"
+                                target="_blank">runwayml.com</a></li>
+                        <li><strong>SkyReels V3:</strong> $0.15/video - <a href="https://piapi.ai/"
+                                target="_blank">piapi.ai</a></li>
+                        <li><strong>Pika Labs:</strong> $0.25/video - <a href="https://pika.art/"
+                                target="_blank">pika.art</a></li>
+                    </ul>
+
+                    <h3>💰 Quality Comparison</h3>
+                    <ul class="cost-list">
+                        <li><strong>Budget Setup:</strong> ~$0.23/video</li>
+                        <li><strong>Premium Setup:</strong> ~$3.31/video</li>
+                        <li><strong>Hybrid Mix:</strong> Customize to your needs!</li>
+                    </ul>
+
+                    <h3>💡 Tips</h3>
+                    <ul class="tips-list">
+                        <li>Start with budget setup to test</li>
+                        <li>Mix services for optimal cost/quality</li>
+                        <li>All services have free trials!</li>
                     </ul>
                 </div>
             </div>
