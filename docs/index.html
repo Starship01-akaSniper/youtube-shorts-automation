@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Shorts Automation - AI-Powered Video Creation</title>
+    <meta name="description"
+        content="Transform your scripts into viral YouTube Shorts automatically with AI. Features web dashboard, FREE Gemini API, and complete automation.">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Demo Notice Banner -->
+    <div
+        style="background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%); color: white; padding: 1rem; text-align: center; font-weight: 600;">
+        🎨 UI DEMO ONLY - For full functionality, run locally or deploy to cloud.
+        <a href="https://github.com/Starship01-akaSniper/youtube-shorts-automation#quick-start"
+            style="color: white; text-decoration: underline; margin-left: 1rem;">
+            Get Started →
+        </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+                <span class="nav-title">YouTube Shorts AI</span>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="nav-link active" data-page="dashboard">Dashboard</a>
+                <a href="#" class="nav-link" data-page="create">Create Video</a>
+                <a href="#" class="nav-link" data-page="library">Library</a>
+                <a href="#" class="nav-link" data-page="settings">Settings</a>
+                <a href="https://github.com/Starship01-akaSniper/youtube-shorts-automation" class="nav-link"
+                    target="_blank" style="background: rgba(99, 102, 241, 0.15);">
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Dashboard Page -->
+        <div id="dashboard-page" class="page active">
+            <!-- Hero Section -->
+            <div style="text-align: center; padding: 3rem 0; margin-bottom: 2rem;">
+                <h1
+                    style="font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                    YouTube Shorts Automation
+                </h1>
+                <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;">
+                    Transform scripts into viral YouTube Shorts with AI - Fully automated workflow
+                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://github.com/Starship01-akaSniper/youtube-shorts-automation"
+                        class="btn btn-primary btn-large" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path
+                                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                            </path>
+                        </svg>
+                        View on GitHub
+                    </a>
+                    <a href="https://github.com/Starship01-akaSniper/youtube-shorts-automation#quick-start"
+                        class="btn btn-secondary btn-large" target="_blank">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="16 18 22 12 16 6"></polyline>
+                            <polyline points="8 6 2 12 8 18"></polyline>
+                        </svg>
+                        Get Started
+                    </a>
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M23 7l-7 5 7 5V7z"></path>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Cost per Video</p>
+                        <h3 class="stat-value">$0.23</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">FREE Content AI</p>
+                        <h3 class="stat-value">Gemini</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Generation Time</p>
+                        <h3 class="stat-value">5-10min</h3>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                            <path d="M2 17l10 5 10-5"></path>
+                            <path d="M2 12l10 5 10-5"></path>
+                        </svg>
+                    </div>
+                    <div class="stat-info">
+                        <p class="stat-label">Full Stack</p>
+                        <h3 class="stat-value">Ready</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2>Features</h2>
+                </div>
+                <div class="videos-grid">
+                    <div class="video-card">
+                        <div class="video-thumbnail"
+                            style="aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                style="width: 48px; height: 48px;">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Web Dashboard</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                                Beautiful, responsive interface for managing everything
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-thumbnail"
+                            style="aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(5, 150, 105, 0.2) 100%);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                style="width: 48px; height: 48px;">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                            </svg>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">AI Content Generation</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                                FREE Gemini API for titles, descriptions, and tags
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="video-card">
+                        <div class="video-thumbnail"
+                            style="aspect-ratio: 16/9; background: linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(217, 119, 6, 0.2) 100%);">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                style="width: 48px; height: 48px;">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">Full Automation</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem;">
+                                TTS, video generation, captions, and assembly
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div
+                style="text-align: center; padding: 3rem 1rem; background: var(--glass-bg); border-radius: var(--radius-xl); margin-top: 3rem;">
+                <h2 style="font-size: 2rem; margin-bottom: 1rem;">Ready to Get Started?</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; font-size: 1.125rem;">
+                    Clone the repository and start creating amazing YouTube Shorts!
+                </p>
+                <div
+                    style="background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); margin: 0 auto; max-width: 600px; text-align: left; font-family: monospace;">
+                    git clone https://github.com/Starship01-akaSniper/youtube-shorts-automation.git<br>
+                    cd youtube-shorts-automation<br>
+                    pip install -r requirements.txt<br>
+                    python app.py
+                    </p>
+                </div>
+            </div>
+
+            <!-- Other pages remain the same from original index.html -->
+            <div id="create-page" class="page">
+                <div style="text-align: center; padding: 5rem 1rem;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Create Video</h1>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        This feature requires the backend server to be running.
+                    </p>
+                    <a href="https://github.com/Starship01-akaSniper/youtube-shorts-automation#quick-start"
+                        class="btn btn-primary btn-large" target="_blank">
+                        Setup Instructions
+                    </a>
+                </div>
+            </div>
+
+            <div id="library-page" class="page">
+                <div style="text-align: center; padding: 5rem 1rem;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Video Library</h1>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        This feature requires the backend server to be running.
+                    </p>
+                    <a href="https://github.com/Starship01-akaSniper/youtube-shorts-automation#quick-start"
+                        class="btn btn-primary btn-large" target="_blank">
+                        Setup Instructions
+                    </a>
+                </div>
+            </div>
+
+            <div id="settings-page" class="page">
+                <div style="text-align: center; padding: 5rem 1rem;">
+                    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Settings</h1>
+                    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                        This feature requires the backend server to be running.
+                    </p>
+                    <a href="https://github.com/Starship01-akaSniper/youtube-shorts-automation#quick-start"
+                        class="btn btn-primary btn-large" target="_blank">
+                        Setup Instructions
+                    </a>
+                </div>
+            </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <svg class="toast-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <p id="toast-message">Success!</p>
+        </div>
+    </div>
+
+    <!-- Simplified Scripts for Demo -->
+    <script>
+        // Simple navigation for demo
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('target') === '_blank') return;
+
+                e.preventDefault();
+                const page = link.dataset.page;
+
+                if (!page) return;
+
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+
+                document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+                document.getElementById(`${page}-page`).classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
