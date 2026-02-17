@@ -33,6 +33,24 @@ class APIClient {
         }
     }
 
+    // Schedules
+    async getSchedules() {
+        return this.request('/api/schedules');
+    }
+
+    async createSchedule(data) {
+        return this.request('/api/schedules', {
+            method: 'POST',
+            body: JSON.stringify(data)
+        });
+    }
+
+    async deleteSchedule(id) {
+        return this.request(`/api/schedules/${id}`, {
+            method: 'DELETE'
+        });
+    }
+
     // Configuration
     async getConfigStatus() {
         return this.request('/api/config/status');
@@ -88,6 +106,19 @@ class APIClient {
     // Health
     async healthCheck() {
         return this.request('/api/health');
+    }
+
+    // Video Actions
+    async uploadVideo(videoId) {
+        return this.request(`/api/videos/${videoId}/upload`, {
+            method: 'POST'
+        });
+    }
+
+    async deleteVideo(videoId) {
+        return this.request(`/api/videos/${videoId}`, {
+            method: 'DELETE'
+        });
     }
 }
 
