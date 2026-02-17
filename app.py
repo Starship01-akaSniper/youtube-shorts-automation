@@ -231,9 +231,9 @@ if __name__ == '__main__':
     print("\n" + "="*60)
     print("  YOUTUBE SHORTS AUTOMATION - WEB SERVER")
     print("="*60)
-    print("\n🚀 Starting server...")
-    print("📡 Dashboard: http://localhost:5000")
-    print("🔧 API Docs: http://localhost:5000/api/health")
+    print("\n[START] Starting server...")
+    print("[URL] Dashboard: http://localhost:5000")
+    print("[API] API Docs: http://localhost:5000/api/health")
     print("\nPress Ctrl+C to stop\n")
     
     app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)

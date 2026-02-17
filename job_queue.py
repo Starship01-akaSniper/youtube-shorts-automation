@@ -34,24 +34,24 @@ class JobQueue:
         self.running = True
         self.worker_thread = threading.Thread(target=self._worker, daemon=True)
         self.worker_thread.start()
-        print("✅ Job queue worker started")
+        print("[OK] Job queue worker started")
     
     def stop(self):
         """Stop the job queue worker"""
         self.running = False
         if self.worker_thread:
             self.worker_thread.join(timeout=5)
-        print("🛑 Job queue worker stopped")
+        print("[STOP] Job queue worker stopped")
     
     def submit_job(self, video_id):
         """Submit a new job to the queue"""
         job_id = db.create_job(video_id)
-        print(f"📝 Job {job_id} created for video {video_id}")
+        print(f"[NEW] Job {job_id} created for video {video_id}")
         return job_id
     
     def _worker(self):
         """Background worker that processes jobs"""
-        print("🔄 Job queue worker running...")
+        print("[WORKER] Job queue worker running...")
         
         while self.running:
             # Get next pending job
@@ -159,10 +159,10 @@ class JobQueue:
                 completed_at=datetime.now()
             )
             
-            print(f"\n✅ Job {job_id} completed successfully!")
+            print(f"\n[SUCCESS] Job {job_id} completed successfully!")
             
         except Exception as e:
-            print(f"\n❌ Job {job_id} failed: {e}")
+            print(f"\n[ERROR] Job {job_id} failed: {e}")
             import traceback
             traceback.print_exc()
             
