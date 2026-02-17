@@ -11,6 +11,12 @@ venv/
 env/
 ENV/
 
+# Database and encryption
+data/
+*.db
+*.db-journal
+.secret_key
+
 # YouTube credentials
 token.pickle
 client_secrets.json
@@ -31,3 +37,7 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Test files
+test_audio.mp3
+test_video.mp4

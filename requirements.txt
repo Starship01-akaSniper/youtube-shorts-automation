@@ -1,24 +1,10 @@
-# YouTube Shorts Automation - Requirements
-
-# Core dependencies
+flask==3.0.0
+flask-cors==4.0.0
+cryptography==42.0.0
 python-dotenv==1.0.0
-
-# Google APIs
 google-generativeai==0.8.3
 google-api-python-client==2.149.0
 google-auth-httplib2==0.2.0
 google-auth-oauthlib==1.2.1
-
-# OpenAI
 openai==1.55.3
-
-# Video/Audio processing
 requests==2.32.3
-
-# Optional: ElevenLabs (uncomment if using)
-# elevenlabs==1.11.0
-
-# Note: FFmpeg must be installed separately on your system
-# Windows: Download from https://ffmpeg.org/download.html
-# macOS: brew install ffmpeg
-# Linux: sudo apt-get install ffmpeg

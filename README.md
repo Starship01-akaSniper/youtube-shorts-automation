@@ -1,214 +1,246 @@
-# YouTube Shorts Automation
+# YouTube Shorts Automation 🎬
 
-An AI-powered automation system that generates YouTube Shorts from scripts. Simply provide a script, and the system will automatically create a professional video with voiceover, captions, music, and publish it to YouTube.
+> **AI-Powered YouTube Shorts Creation with Web Dashboard & FREE Gemini API**
 
-## 🎯 Features
+Transform your scripts into viral YouTube Shorts automatically! Features a modern web dashboard, CLI tools, and complete automation workflow.
 
-- **Video Generation**: AI-powered video creation from text prompts
-- **Text-to-Speech**: Professional voiceover generation
-- **Auto-Captions**: Automatic subtitle generation
-- **Content Generation**: AI-generated titles, descriptions, and tags
-- **YouTube Upload**: Automatic publishing to YouTube
+## 🌟 Two Ways to Use
 
-## 💰 Cost Per Video
+### 🌐 Web Dashboard (Recommended)
+Beautiful, responsive interface with:
+- API configuration through UI forms (no manual .env editing!)
+- Visual video creation and management
+- Real-time job monitoring
+- Video library with download links
+- Automated scheduling (coming soon)
 
-Using the recommended FREE/budget setup:
-- **Video Generation**: $0.20 (Luma AI)
-- **Text-to-Speech**: $0.02 (OpenAI TTS)
-- **Content AI**: $0.00 (Google Gemini FREE API)
-- **Captions**: $0.01 (Whisper)
-- **Total**: ~$0.23 per video
+### 💻 Command Line (Advanced)
+Full CLI access for scripting and automation
 
-## 📋 Prerequisites
+## ✨ Features
 
-- Python 3.8 or higher
-- FFmpeg installed on your system
-- API keys for the services you want to use
+- **🌐 Modern Web Dashboard** - Manage everything through a beautiful interface
+- **🤖 AI Content Generation** - FREE Google Gemini API for titles, descriptions, tags
+- **🎙️ Text-to-Speech** - Natural voiceovers (OpenAI TTS or ElevenLabs)
+- **🎬 AI Video Generation** - Luma AI or Runway Gen-3 integration
+- **📝 Auto-Captions** - Whisper API for professional subtitles
+- **🎞️ Video Assembly** - FFmpeg-powered editing with captions
+- **📤 YouTube Upload** - Direct publishing to your channel
+- **💰 Cost-Effective** - ~$0.23 per video using budget setup
+- **🔒 Secure** - Encrypted API key storage
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Web Dashboard)
 
-### 1. Clone and Setup
+### 1. Clone & Install
 
 ```bash
+git clone https://github.com/Starship01-akaSniper/youtube-shorts-automation.git
 cd youtube-shorts-automation
+
+# Create virtual environment
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-### 2. Configure API Keys
-
-Copy the example environment file and add your API keys:
+### 2. Start Web Server
 
 ```bash
-cp .env.example .env
+python app.py
 ```
 
-Edit `.env` and add your API keys (see Configuration section below).
+Server starts at: **http://localhost:5000** 🎉
 
-### 3. Run Your First Video
+### 3. Configure via Web UI
 
-```bash
-python main.py
-```
+1. Open http://localhost:5000 in your browser
+2. Click **Settings** in navigation
+3. Enter your API keys in the forms
+4. Click **Save Configuration**
 
-Follow the prompts to:
-1. Enter your video script
-2. Choose your preferences
-3. Watch as the system creates and uploads your video!
+That's it! No manual .env file editing needed! 🙌
 
-## ⚙️ Configuration
+### 4. Create Your First Video
 
-### Required API Keys
+1. Click **Create Video**
+2. Enter your script (150-200 words)
+3. Click **Generate Video**
+4. Monitor progress on **Dashboard**
+5. Download from **Library** when complete
 
-Edit the `.env` file and add your API keys:
+## 🔑 API Keys Setup
 
-```env
-# === FREE OPTION (Recommended for starting) ===
-# Google Gemini API - FREE (1,000 requests/day)
-GEMINI_API_KEY=your_gemini_api_key_here
+Get your API keys from these providers:
 
-# OpenAI API
-OPENAI_API_KEY=your_openai_api_key_here
+### Required APIs
 
-# Luma AI API
-LUMA_API_KEY=your_luma_api_key_here
+| Service | Cost | Link | Purpose |
+|---------|------|------|---------|
+| **Google Gemini** | FREE! | [ai.google.dev](https://ai.google.dev/) | Content generation |
+| **OpenAI** | ~$0.03/video | [platform.openai.com](https://platform.openai.com/api-keys) | TTS & Captions |
+| **Luma AI** | ~$0.20/video | [piapi.ai](https://piapi.ai/) | Video generation |
 
-# YouTube Data API v3
-YOUTUBE_API_KEY=your_youtube_api_key_here
-YOUTUBE_CLIENT_ID=your_client_id_here
-YOUTUBE_CLIENT_SECRET=your_client_secret_here
-```
+### Optional APIs
 
-### How to Get API Keys
+| Service | Purpose |
+|---------|---------|
+| **YouTube Data API** | Auto-upload to YouTube |
+| **ElevenLabs** | Premium-quality voiceovers |
+| **Runway Gen-3** | Higher-quality videos |
 
-1. **Google Gemini API** (FREE - Recommended)
-   - Visit: https://ai.google.dev/
-   - Click "Get API key in Google AI Studio"
-   - Create a new project and generate an API key
-   - Free tier: 1,000 requests per day
+**Enter all keys through the web dashboard Settings page!**
 
-2. **OpenAI API**
-   - Visit: https://platform.openai.com/api-keys
-   - Create an account and generate an API key
-   - Add $5-10 credit to start
+## 💰 Cost Breakdown
 
-3. **Luma AI API**
-   - Visit: https://lumaapi.com/ or https://piapi.ai/
-   - Sign up for API access
-   - Pay-as-you-go: $0.20 per video
+**Budget Setup** - $0.23 per video:
+- Gemini: $0.00 (FREE!)
+- OpenAI TTS: $0.02
+- Whisper Captions: $0.01
+- Luma AI Video: $0.20
 
-4. **YouTube Data API v3**
-   - Visit: https://console.cloud.google.com/
-   - Create a new project
-   - Enable YouTube Data API v3
-   - Create OAuth 2.0 credentials
+**Monthly (30 videos):** ~$7-14
+
+See [youtube_shorts_automation_cost_analysis.md](https://github.com/Starship01-akaSniper/youtube-shorts-automation/blob/main/youtube_shorts_automation_cost_analysis.md) for detailed breakdown.
 
 ## 📁 Project Structure
 
 ```
 youtube-shorts-automation/
-├── main.py                 # Main entry point
+├── app.py                 # Flask web server
+├── database.py            # Database manager with encryption
+├── job_queue.py           # Background job processor
 ├── config.py              # Configuration loader
-├── requirements.txt       # Python dependencies
-├── .env.example          # Example environment file
-├── .env                  # Your API keys (do not commit!)
-├── modules/
-│   ├── video_generator.py    # Video generation (Luma AI)
-│   ├── tts_generator.py      # Text-to-speech (OpenAI)
-│   ├── content_generator.py  # Titles/descriptions (Gemini)
-│   ├── caption_generator.py  # Auto-captions (Whisper)
-│   ├── video_assembler.py    # FFmpeg video assembly
-│   └── youtube_uploader.py   # YouTube upload
-├── output/               # Generated videos
-└── scripts/             # Example video scripts
+├── main.py                # CLI entry point
+├── modules/               # Core automation modules
+│   ├── content_generator.py
+│   ├── tts_generator.py
+│   ├── video_generator.py
+│   ├── caption_generator.py
+│   ├── video_assembler.py
+│   └── youtube_uploader.py
+├── web/                   # Web dashboard
+│   ├── index.html
+│   ├── css/style.css
+│   └── js/
+│       ├── api.js
+│       └── app.js
+├── requirements.txt
+└── README.md
 ```
 
-## 🎬 Usage Examples
+## 🎯 Usage Examples
 
-### Simple Mode (Interactive)
+### Web Dashboard (Recommended)
+
+1. Start server: `python app.py`
+2. Open browser to http://localhost:5000
+3. Use the beautiful UI to create videos!
+
+### Command Line
+
 ```bash
-python main.py
+# Interactive mode
+python main.py --interactive
+
+# From file
+python main.py --script-file scripts/example_honey.txt
+
+# Direct command
+python main.py --script "Your amazing script here" --upload
 ```
 
-### Advanced Mode (Programmatic)
-```python
-from modules import VideoGenerator, TTSGenerator, ContentGenerator
+## 🌐 Deploy to Cloud
 
-# Your script
-script = "Did you know that honey never spoils? Archaeologists have found 3000-year-old honey in Egyptian tombs that's still edible!"
+Deploy your dashboard to the cloud for 24/7 access!
 
-# Generate video
-video = VideoGenerator.create(script)
-audio = TTSGenerator.generate(script)
-metadata = ContentGenerator.generate(script)
+Supported platforms:
+- **Railway** (Free tier)
+- **Render** (Free tier)
+- **Fly.io** (Free tier)
+- **Heroku**
 
-# Upload to YouTube
-YouTubeUploader.upload(video, audio, metadata)
-```
+See [WEB_DEPLOYMENT.md](WEB_DEPLOYMENT.md) for detailed deployment instructions.
 
-## 🔧 Customization
+## 🛠️ Advanced Configuration
 
-### Change Video Service
-Edit `config.py` to switch between Luma AI and Runway:
+### FFmpeg Installation
 
-```python
-VIDEO_SERVICE = "luma"  # Options: "luma", "runway"
-```
+**Windows:** Download from [ffmpeg.org](https://ffmpeg.org/download.html)  
+**macOS:** `brew install ffmpeg`  
+**Linux:** `sudo apt-get install ffmpeg`
 
-### Change TTS Service
-```python
-TTS_SERVICE = "openai"  # Options: "openai", "elevenlabs"
-```
+### Database Location
 
-### Change Content AI
-```python
-CONTENT_AI = "gemini"  # Options: "gemini", "gpt4", "claude"
-```
+All data stored in: `data/automation.db`  
+Encryption key: `data/.secret_key`
 
-## 📊 Cost Optimization
+**Backup regularly!**
 
-- **FREE Option**: Use Google Gemini API (free up to 1,000 requests/day)
-- **Budget**: Luma AI ($0.20) + OpenAI TTS ($0.02) + Gemini (free) = $0.23/video
-- **Quality**: Runway ($3.00) + ElevenLabs ($0.30) + GPT-4 ($0.01) = $3.31/video
+## 📊 Dashboard Features
+
+- **Statistics Cards** - Total videos, completed, processing, pending
+- **Video Library** - Grid view of all created videos
+- **Job Monitor** - Real-time progress tracking
+- **Settings Panel** - API key configuration with encrypted storage
+- **Auto-Refresh** - Live updates every 5-10 seconds
+
+## 🎬 Video Creation Workflow
+
+The system automates these steps:
+
+1. **Content AI** (5s) - Generate title, description, tags
+2. **Text-to-Speech** (10s) - Create voiceover from script
+3. **Video Generation** (2-5min) - AI-generated visuals
+4. **Caption Generation** (10s) - Subtitle creation
+5. **Video Assembly** (30s) - Combine everything with FFmpeg
+6. **Upload** (optional) - Publish to YouTube
+
+**Total time:** ~5-10 minutes per video
 
 ## 🐛 Troubleshooting
 
-### FFmpeg Not Found
-Install FFmpeg:
-- **Windows**: Download from https://ffmpeg.org/download.html
-- **macOS**: `brew install ffmpeg`
-- **Linux**: `sudo apt-get install ffmpeg`
+### Web Server Won't Start
+- Check if port 5000 is in use
+- Ensure all dependencies are installed
+- Try: `pip install -r requirements.txt --upgrade`
 
-### API Rate Limits
-- Gemini: 1,000 requests/day (free tier)
-- YouTube: 6 uploads/day (new channels)
-- Adjust frequency in config if you hit limits
+### API Keys Not Saving
+- Verify `data/` directory exists
+- Check browser console for errors
+- Ensure database has write permissions
 
-### Video Generation Fails
-- Check your API key validity
-- Ensure you have sufficient credits
-- Check service status pages
+### Jobs Not Processing
+- Restart server to restart worker thread
+- Check server terminal for error messages
+- Verify all API keys are valid
 
-## 📝 License
-
-MIT License - Feel free to use and modify!
+See [WEB_DEPLOYMENT.md](WEB_DEPLOYMENT.md) for more troubleshooting.
 
 ## 🤝 Contributing
 
-Contributions welcome! Please feel free to submit a Pull Request.
+Contributions welcome! Please:
 
-## ⚠️ Disclaimer
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-This tool is for educational purposes. Ensure you comply with:
-- YouTube's Terms of Service
-- Each API provider's terms
-- Copyright laws for any content you generate
+## 📜 License
 
-## 📞 Support
+MIT License - feel free to use for personal or commercial projects!
 
-For issues or questions, please open an issue on GitHub.
+## 🌟 Star This Repo!
+
+If you find this useful, give it a star ⭐ on GitHub!
 
 ---
 
 **Made with ❤️ for content creators**
+
+Need help? Check the [Issues](https://github.com/Starship01-akaSniper/youtube-shorts-automation/issues) page!
