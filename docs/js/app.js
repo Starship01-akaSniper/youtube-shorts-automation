@@ -92,7 +92,92 @@ function initForms() {
     if (configForm) {
         configForm.addEventListener('submit', handleSaveConfig);
     }
+
+    // Service selection listeners
+    initServiceSelectors();
 }
+
+// Initialize service selector listeners
+function initServiceSelectors() {
+    // Video service selector
+    const videoService = document.getElementById('video-service');
+    if (videoService) {
+        videoService.addEventListener('change', updateVideoServiceHints);
+        updateVideoServiceHints(); // Initial update
+    }
+
+    // Content AI service selector
+    const contentAI = document.getElementById('content-ai-service');
+    if (contentAI) {
+        contentAI.addEventListener('change', () => {
+            // Could update hints/labels here
+        });
+    }
+
+    // TTS service selector
+    const ttsService = document.getElementById('tts-service');
+    if (ttsService) {
+        ttsService.addEventListener('change', () => {
+            // Could update hints/labels here
+        });
+    }
+}
+
+// Update video service hints
+function updateVideoServiceHints() {
+    const service = document.getElementById('video-service').value;
+    const link = document.getElementById('video-service-link');
+
+    const services = {
+        'luma': '<a href="https://piapi.ai/" target="_blank">piapi.ai</a>',
+        'runway': '<a href="https://runwayml.com/" target="_blank">runwayml.com</a>',
+        'skyreels': '<a href="https://piapi.ai/" target="_blank">piapi.ai</a>',
+        'pika': '<a href="https://pika.art/" target="_blank">pika.art</a>'
+    };
+
+    if (link) {
+        link.innerHTML = services[service] || '';
+    }
+}
+
+// Quality preset selection
+window.selectQualityPreset = function (preset) {
+    const presets = {
+        budget: {
+            'content-ai-service': 'gemini',
+            'tts-service': 'openai',
+            'video-service': 'luma'
+        },
+        premium: {
+            'content-ai-service': 'gpt4',
+            'tts-service': 'elevenlabs',
+            'video-service': 'runway'
+        }
+    };
+
+    const config = presets[preset];
+    if (config) {
+        Object.keys(config).forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = config[id];
+        });
+
+        // Update hints
+        updateVideoServiceHints();
+
+        // Visual feedback
+        document.querySelectorAll('.quality-preset').forEach(p => {
+            p.style.border = '1px solid var(--glass-border)';
+        });
+        const selected = document.querySelector(`[data-preset="${preset}"]`);
+        if (selected) {
+            selected.style.border = '2px solid var(--primary)';
+        }
+
+        showToast(`${preset === 'budget' ? '💰 Budget' : '⭐ Premium'} preset selected!`);
+    }
+}
+
 
 // Check configuration status
 async function checkConfiguration() {
@@ -183,7 +268,7 @@ function renderVideos(videos, containerId) {
                 </div>
                 <div class="video-actions">
                     ${video.status === 'completed' ? `
-                        <a href="/api/videos/${video.id}/download" class="btn btn-primary" download>
+                        <a href="/api/videos/${video.id}/download" class="btn btn-primary btn-sm" download>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -191,7 +276,39 @@ function renderVideos(videos, containerId) {
                             </svg>
                             Download
                         </a>
+                        <button class="btn btn-secondary btn-sm" onclick="openEditor(${video.id})">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                            </svg>
+                            Edit
+                        </button>
+                        ${!video.youtube_url ? `
+                            <button class="btn btn-success btn-sm" onclick="handleUploadVideo(${video.id})">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="17 8 12 3 7 8"></polyline>
+                                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                                </svg>
+                                Upload to YouTube
+                            </button>
+                        ` : `
+                            <a href="${video.youtube_url}" class="btn btn-success btn-sm" target="_blank">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                                    <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                                </svg>
+                                View on YouTube
+                            </a>
+                        `}
                     ` : ''}
+                    <button class="btn btn-danger btn-sm" onclick="handleDeleteVideo(${video.id})">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>
@@ -291,13 +408,28 @@ async function loadSettings() {
 async function handleSaveConfig(e) {
     e.preventDefault();
 
+    // Gather all configuration data
     const config = {
-        gemini: document.getElementById('api-gemini').value.trim(),
-        openai: document.getElementById('api-openai').value.trim(),
-        luma: document.getElementById('api-luma').value.trim(),
-        youtube_client_id: document.getElementById('api-youtube-client-id').value.trim(),
-        youtube_client_secret: document.getElementById('api-youtube-client-secret').value.trim(),
+        // Service selections
+        content_ai_service: document.getElementById('content-ai-service')?.value,
+        tts_service: document.getElementById('tts-service')?.value,
+        video_service: document.getElementById('video-service')?.value,
+
+        // API Keys
+        gemini: document.getElementById('api-gemini')?.value.trim(),
+        openai: document.getElementById('api-openai')?.value.trim(),
+        video_api: document.getElementById('api-video')?.value.trim(),
+        video_endpoint: document.getElementById('video-endpoint')?.value.trim(),
+        whisper: document.getElementById('api-whisper')?.value.trim(),
+        elevenlabs: document.getElementById('api-elevenlabs')?.value.trim(),
+        youtube_client_id: document.getElementById('api-youtube-client-id')?.value.trim(),
+        youtube_client_secret: document.getElementById('api-youtube-client-secret')?.value.trim(),
     };
+
+    // Remove empty values
+    Object.keys(config).forEach(key => {
+        if (!config[key]) delete config[key];
+    });
 
     const btn = e.target.querySelector('button[type="submit"]');
     const originalText = btn.innerHTML;
@@ -308,9 +440,12 @@ async function handleSaveConfig(e) {
         await api.saveConfig(config);
         showToast('✅ Configuration saved successfully!');
 
-        // Clear password fields for security
-        Object.keys(config).forEach(key => {
-            document.getElementById(`api-${key.replace('_', '-')}`).value = '';
+        // Clear password fields for security (not service selections)
+        const passwordFields = ['api-gemini', 'api-openai', 'api-video', 'api-whisper',
+            'api-elevenlabs', 'api-youtube-client-id', 'api-youtube-client-secret'];
+        passwordFields.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = '';
         });
 
     } catch (error) {
@@ -393,4 +528,57 @@ function formatDate(dateString) {
     if (diffDays < 7) return `${diffDays}d ago`;
 
     return date.toLocaleDateString();
+}
+
+// Video Actions
+window.handleUploadVideo = async function (videoId) {
+    if (!confirm('Upload this video to YouTube? Make sure you have configured YouTube API credentials in Settings.')) {
+        return;
+    }
+
+    try {
+        showToast('Uploading to YouTube...');
+        const result = await api.uploadVideo(videoId);
+        showToast(`✅ Successfully uploaded to YouTube!`);
+
+        // Reload videos to update UI
+        if (currentPage === 'library') {
+            loadLibrary();
+        } else {
+            loadVideos();
+        }
+    } catch (error) {
+        showToast(`Failed to upload: ${error.message}`, 'error');
+    }
+}
+
+window.handleDeleteVideo = async function (videoId) {
+    if (!confirm('Are you sure you want to delete this video? This action cannot be undone.')) {
+        return;
+    }
+
+    try {
+        await api.deleteVideo(videoId);
+        showToast('✅ Video deleted successfully');
+
+        // Reload videos
+        if (currentPage === 'library') {
+            loadLibrary();
+        } else {
+            loadVideos();
+        }
+
+        // Refresh stats
+        const stats = await api.getStats();
+        updateStats(stats);
+    } catch (error) {
+        showToast(`Failed to delete video: ${error.message}`, 'error');
+    }
+}
+
+window.openEditor = function (videoId) {
+    // For now, show a message that editor is coming
+    // Will be fully implemented next
+    showToast('Video editor coming soon! Edit features in development.', 'info');
+    // TODO: switchPage('editor'); editor.loadVideo(videoId);
 }
